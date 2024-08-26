@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "fad4792d-0967-4728-8604-f504ca62f91f",
+		"name": "nodejs-mysql-recruitment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34006317",
+		"_collection_link": "https://fajrulhq.postman.co/workspace/FajrulHQ---Portfolio~6eb8b236-3d8b-48ee-9194-b4c47191420b/collection/34006317-fad4792d-0967-4728-8604-f504ca62f91f?action=share&source=collection_link&creator=34006317"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"fajrulhq\",\n    \"password\": \"inipassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/auth/register",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"fajrulhq\",\n    \"password\": \"inipassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/auth/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "position",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"fajrulhq\",\n    \"password\": \"inipassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/recruitment/positions?location=remote",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"recruitment",
+						"positions"
+					],
+					"query": [
+						{
+							"key": "description",
+							"value": "ruby",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "remote"
+						},
+						{
+							"key": "page",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "position by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"fajrulhq\",\n    \"password\": \"inipassword\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/api/recruitment/position/32bf67e5-4971-47ce-985c-44b6b3860cdb",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"recruitment",
+						"position",
+						"32bf67e5-4971-47ce-985c-44b6b3860cdb"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
