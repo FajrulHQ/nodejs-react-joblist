@@ -2,7 +2,7 @@
 
 ### Description
 
-This project demonstrates a simple CRUD (Create, Read, Update, Delete) application built with NodeJS and the official MySQL driver. It allows you to access url of recruitment positions with jwt auth, including their details, links, and start/end dates.
+This project demonstrates an application built with NodeJS and the official MySQL driver. It allows you to access url of recruitment positions with jwt auth, including their details, links, and start/end dates.
 
 
 ### Prerequisites:
@@ -35,10 +35,11 @@ URL_API='https://dev6.dansmultipro.com/api/recruitment/positions.json'
 
 ### API Endpoints:
 
-- `GET /articles`: Retrieves all article.
-- `GET /articles/{id}`: Retrieves a specific article by ID.
-- `GET /articles/?limit={limit}&offset={offset}`: Retrieves articles by limit and offset.
-- `GET /articles/?status={status}`: Filter articles by status.
-- `POST /articles`: Creates a new article. (Payload should be a JSON object representing the Post struct)
-- `PUT /articles/{id}`: Updates an existing article. (Payload should be a JSON object with updated Post information)
-- `DELETE /articles/{id}`: Deletes an existing article.
+#### Authentication
+- `POST /auth/register`: Create user account using username and password.
+- `POST /auth/login`: Login to get an access token.
+
+#### Recruitment
+- `GET /recruitment/positions`: Retrieves all recruitment positions.
+- `GET /recruitment/positions/{id}`: Retrieves a specific recruitment position by ID.
+- `GET /articles/?params={params}`: Filter articles by params `description`, `location`, and/or `full_time`.

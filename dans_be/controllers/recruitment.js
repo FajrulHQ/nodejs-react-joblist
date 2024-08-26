@@ -6,8 +6,14 @@ const getPosition = async (req, res) => {
     if (!URL_API) {
       res.status(500).json({ message: 'Error fetching data', error: 'System error' });
     }
-    const response = await axios.get(URL_API, { params: req.query });
-    res.json(response.data);
+    let { data } = await axios.get(URL_API, { params: req.query });
+    
+    if (req.query.full_time === 'true') {
+      data = data.filter(item => item && item?.type === 'Full Time')
+    } else {
+      data = data.filter(item => item && item?.type !== 'Full Time')
+    }
+    res.json(data);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error: error.message });
   }
@@ -20,8 +26,8 @@ const getPositionByID = async (req, res) => {
     if (!URL_API) {
       res.status(500).json({ message: 'Error fetching data', error: 'System error' });
     }
-    const response = await axios.get(URL_API);
-    const data = response.data.find(item => item.id === id)
+    let { data } = await axios.get(URL_API);
+    data = data.find(item => item.id === id)
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching data', error: error.message });
