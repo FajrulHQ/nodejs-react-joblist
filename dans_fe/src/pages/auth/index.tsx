@@ -47,11 +47,11 @@ export default function AuthPage() {
       key: 'register',
       label: 'Register',
       children: (
-        <div onSubmit={e => { e.preventDefault(); onAuth({ method: 'register' }) }} className="space-y-3 flex-col justify-center items-center mx-4">
+        <form onSubmit={e => { e.preventDefault(); onAuth({ method: 'register' }) }} className="space-y-3 flex-col justify-center items-center mx-4">
           <Input addonBefore="Username" value={username} onChange={e => setAuth({ username: e.target.value, password })} />
           <Input.Password addonBefore="Password" value={password} onChange={e => setAuth({ username, password: e.target.value })} />
           <Button disabled={!username || !password} loading={isLoading} className="w-full" type="primary" htmlType="submit">Register</Button>
-        </div>
+        </form>
       ),
     }
   ]

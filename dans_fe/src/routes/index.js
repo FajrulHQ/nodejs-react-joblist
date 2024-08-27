@@ -15,7 +15,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: autoRedirect(<AuthPage />, '/app', !isLogged),
+        element: autoRedirect(<AuthPage />, '/app?full_time=true', !isLogged),
       },
       {
         path: 'app',
@@ -27,7 +27,7 @@ const routes = createBrowserRouter([
           },
           {
             path: ':id',
-            element: autoRedirect(<RecruitmentPositionDetailPage />, '/ap', isLogged),
+            element: autoRedirect(<RecruitmentPositionDetailPage />, '/', isLogged),
           }
         ]
       }

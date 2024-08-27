@@ -11,4 +11,5 @@ export interface RecruitmentPositionType {
   how_to_apply: string
   company_logo: string
   loading?: boolean
+  more_jobs: number
 }

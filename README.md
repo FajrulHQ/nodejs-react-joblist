@@ -6,7 +6,8 @@ The articles page is a dynamic web application built with NodeJS , MySQL, and Re
 ### Documentation
 - [Backend - README](dans_be/README.md) | [Postman Collection](api.postman_collection.json)
 - [Frontend - README](dans_be/README.md)
-<!-- ![simulation](simulation.gif) -->
+
+![simulation](simulation.gif)
 
 
 ### Project Structure

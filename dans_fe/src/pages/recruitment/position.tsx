@@ -6,11 +6,25 @@ import APIRequest from "../../api/request";
 import { useEffect, useState } from "react";
 import { useGlobalStore } from "../../store";
 import moment from "moment";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function RecruitmentPositionPage() {
+  const navigate = useNavigate()
   const { data, params, setData, setParams } = useGlobalStore()
-  const [update, setUpdate] = useState(true)
   const [messageApi, contextHolder] = message.useMessage();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search)
+  const params_loc = queryParams.get("location") || undefined
+  const params_desc = queryParams.get("description") || undefined
+  const params_company = queryParams.get("company") || undefined
+  const params_fulltime = queryParams.get("full_time")
+
+  const params_mapping = [
+    ['location', params.location, params_loc],
+    ['description', params.description, params_desc],
+    ['company', params.company, params_company],
+    ['full_time', params.full_time, params_fulltime],
+  ]
 
   const { mutate: onFetchData, isLoading, isSuccess } = useMutation(async ({ more_data }: {
     more_data?: boolean
@@ -20,8 +34,9 @@ export default function RecruitmentPositionPage() {
       path: '/api/recruitment/positions',
       params: {
         ...params,
-        description: params.description?.toLowerCase(),
-        location: params.location?.toLowerCase(),
+        company: params_company?.toLowerCase(),
+        description: params_desc?.toLowerCase(),
+        location: params_loc?.toLowerCase(),
         page: more_data ? params.page : 1
       }
     })
@@ -32,7 +47,8 @@ export default function RecruitmentPositionPage() {
         .map((item: any) => ({ ...item, loading: true }))
 
       if (more_data) {
-        setData([...data, ...cleaned_data])
+        const cleaned_add_data = [...data, ...cleaned_data].filter((item, index, self) => self.indexOf(item) === index)
+        setData(cleaned_add_data)
       } else {
         setData(cleaned_data)
       }
@@ -43,20 +59,24 @@ export default function RecruitmentPositionPage() {
       } else {
         messageApi.error('Error in system')
       }
-    },
-    onSettled: () => {
-      setUpdate(false)
     }
   })
 
   useEffect(() => {
-    if (update) {
-      onFetchData({})
-    }
     if (isSuccess) {
       setData(data.map((item: any) => ({ ...item, loading: false })))
     }
-  }, [update, isSuccess]);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    params_mapping.map(([key, param, query_param]: any) => {
+      if (query_param !== param) {
+        setParams(key, query_param)
+      }
+    })
+    onFetchData({})
+  }, [params_loc, params_desc, params_fulltime, params_company]);
+
 
   return (
     <div className="bg-gray-100 w-screen h-screen">
@@ -66,7 +86,18 @@ export default function RecruitmentPositionPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setUpdate(true)
+            params_mapping.map(([key, value]: any) => {
+              if (!value || key === 'company') {
+                queryParams.delete(key)
+              } else {
+                queryParams.set(key, value)
+              }
+            })
+            setParams('page', 1)
+            navigate({
+              pathname: location.pathname,
+              search: queryParams.toString(),
+            });
           }}
           className="flex items-end gap-4"
         >

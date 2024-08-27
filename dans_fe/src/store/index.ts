@@ -7,6 +7,7 @@ interface State {
     page: number,
     description?: string
     location?: string
+    company?:string
     full_time: boolean
   }
 }
